@@ -27,7 +27,7 @@ class GameActivity : AppCompatActivity() {
         val tableSize = sharedPreferences.getString("tableSize", "-1")!!.toInt()
 
         binding.tvBombNumber.text = numberOfBombs
-        MinesweeperModel.resetModel(tableSize)
+        MinesweeperModel.resetModel(tableSize, numberOfBombs.toInt())
     }
 
 
