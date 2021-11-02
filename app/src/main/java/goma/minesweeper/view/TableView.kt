@@ -1,5 +1,6 @@
 package goma.minesweeper.view
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -11,7 +12,7 @@ import androidx.preference.PreferenceManager
 import goma.minesweeper.model.MinesweeperModel
 import kotlin.math.min
 import goma.minesweeper.R
-import goma.minesweeper.model.Cell
+
 
 class TableView : View {
 
@@ -26,11 +27,12 @@ class TableView : View {
     private lateinit var bomb: Bitmap
     private var numberImages: ArrayList<Bitmap> = ArrayList()
 
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     init {
-        paintBg.color = resources.getColor(goma.minesweeper.R.color.tableBackgroundColor)
+        paintBg.color = resources.getColor(R.color.tableBackgroundColor)
         paintBg.style = Paint.Style.FILL
 
         paintLine.color = Color.BLACK
@@ -49,7 +51,7 @@ class TableView : View {
         canvas.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paintBg)
 
         //Betölti a képeket a memóriába
-        if(firstDraw){
+        if (firstDraw) {
             flag = createBitmap(context.resources, R.drawable.monkey)
             bomb = createBitmap(context.resources, R.drawable.bomb)
             numberImages.add(createBitmap(context.resources, R.drawable.number1))
@@ -64,9 +66,12 @@ class TableView : View {
             firstDraw = false
         }
 
+
         drawGameArea(canvas)
         drawCells(canvas)
     }
+
+
 
     private fun drawGameArea(canvas: Canvas) {
         val widthFloat: Float = width.toFloat()
@@ -99,7 +104,7 @@ class TableView : View {
             BitmapFactory.decodeResource(
                 res,
                 id
-            ), cellSize, cellSize, true
+            ), cellSize, cellSize, false
         )
     }
 
@@ -114,7 +119,6 @@ class TableView : View {
 
 
         //flag = Bitmap.createScaledBitmap(flag, cellSize, cellSize, true);
-
 
 
         //A cellákhoz kirajzolja a megfelelő képet/felületet
@@ -141,6 +145,7 @@ class TableView : View {
                 }
             }
         }
+        val i = 0
     }
 
     private fun drawNumber(bombsNumber: Int, x: Float, y: Float) {
@@ -163,7 +168,7 @@ class TableView : View {
 
     //Azért kell, hogy négyzet legyen a tábla
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val w = View.MeasureSpec.getSize(widthMeasureSpec)
+        val w = MeasureSpec.getSize(widthMeasureSpec)
         val h = MeasureSpec.getSize(heightMeasureSpec)
 
         val d: Int = when {
