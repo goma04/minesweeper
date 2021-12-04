@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <EditTextPreference
             android:key="player"
             android:summary="Please enter your player name"
+            android:defaultValue="not_set"
             android:title="Player" />
         <EditTextPreference
             android:key="bombNumber"
             android:summary="Enter the number of bombs"
             android:title="Bombs"
             android:inputType="numberDecimal"
+            android:defaultValue="10"
             android:digits="0123456789"/>
         <ListPreference
             android:entries="@array/tableSize_array"
             android:entryValues="@array/tableSizeValue_array"
+            android:defaultValue="@string/default_tablesize"
             android:key="tableSize"
             android:summary="Choose the size of the table"
             android:title="Table size" />

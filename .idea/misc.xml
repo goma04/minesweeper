@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_game.xml" value="0.17552083333333332" />
-        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_ranking.xml" value="0.17552083333333332" />
+        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_game.xml" value="0.2" />
+        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_ranking.xml" value="0.4" />
         <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/activity_settings.xml" value="0.17552083333333332" />
+        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/fragment_end_game.xml" value="0.24975704567541301" />
+        <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/item_result_list.xml" value="0.4" />
         <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/layout/settings_activity.xml" value="0.17552083333333332" />
         <entry key="..\:/BME/5-felev/minesweeper/app/src/main/res/xml/preferencescreen.xml" value="0.15104166666666666" />
       </map>
