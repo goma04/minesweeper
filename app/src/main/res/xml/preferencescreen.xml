@@ -11,8 +11,10 @@
             android:key="bombNumber"
             android:summary="Enter the number of bombs"
             android:title="Bombs"
-            android:inputType="numberDecimal"
+
             android:defaultValue="10"
+
+            android:inputType="numberDecimal"
             android:digits="0123456789"/>
         <ListPreference
             android:entries="@array/tableSize_array"

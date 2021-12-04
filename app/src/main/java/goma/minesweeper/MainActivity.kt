@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.preference.PreferenceManager
 import goma.minesweeper.data.GameResultDatabase
 import goma.minesweeper.databinding.ActivityMainBinding
+import java.lang.Double.parseDouble
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,40 +25,44 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         PreferenceManager.setDefaultValues(this, R.xml.preferencescreen, false)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        Log.d("bomb", sharedPreferences.getString("bombNumber", "-1").toString())
-
         binding.btStartGame.setOnClickListener {
-            val tableSize = sharedPreferences.getString("tableSize","-1")!!.toInt()
-            val bombNumber =sharedPreferences.getString("bombNumber","-1")!!.toInt()
-            if(bombNumber > (tableSize*tableSize) || bombNumber<0){
-                binding.tvError.text = "Number of bombs should not be set higher than number of cells"
-                binding.tvError.visibility = View.VISIBLE
-            }
-            else{
-                showProgressDialog()
-                startActivity(Intent(this, GameActivity::class.java))
-            }
-
-
+            configureStartButton()
         }
         binding.btRanking.setOnClickListener {
-            startActivity(Intent(this,RankingActivity::class.java))
+            startActivity(Intent(this, RankingActivity::class.java))
         }
-        binding.btSettings.setOnClickListener{
-            startActivity(Intent(this,SettingsActivity::class.java))
-
+        binding.btSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
-
-
-
-       // val database =  GameResultDatabase.getDatabase(applicationContext)
     }
 
+    private fun configureStartButton() {
+        val tableSize = sharedPreferences.getString("tableSize", "-1")!!.toInt()
+        val bomNumberString = sharedPreferences.getString("bombNumber", "-1")
 
+        var bombNumber: Int = 0
+
+        //Bombaszám ellenőrzése hogy szám-e
+        var numeric = true
+        try {
+            val num = parseDouble(bomNumberString?:"_")
+            bombNumber = bomNumberString!!.toInt()
+        } catch (e: NumberFormatException) {
+            numeric = false
+        }
+
+        if (bombNumber > (tableSize * tableSize) || bombNumber < 0 || !numeric) {
+            binding.tvError.text = "Number of bombs should not be set higher than number of cells and should be a numeric value!"
+            binding.tvError.visibility = View.VISIBLE
+        }
+        else{
+            showProgressDialog()
+            startActivity(Intent(this, GameActivity::class.java))
+        }
+    }
 
     override fun onResume() {
         super.onResume()

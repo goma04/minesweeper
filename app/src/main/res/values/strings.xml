@@ -40,6 +40,10 @@
     <string name="ranking">Ranking</string>
     <string name="number_of_bombs">Number of bombs:</string>
     <string name="default_tablesize">10</string>
+    <string name="by_bombs">By bombs</string>
+    <string name="bombs">Bombs</string>
+    <string name="by_time">By time</string>
+    <string name="bomb">Bomb</string>
 
 
 </resources>

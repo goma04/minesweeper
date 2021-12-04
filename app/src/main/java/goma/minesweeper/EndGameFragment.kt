@@ -1,21 +1,12 @@
 package goma.minesweeper
 
 import android.app.Dialog
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.DialogFragment
-import android.R
 import android.content.Context
-import android.util.Log
-import goma.minesweeper.data.GameResult
-import goma.minesweeper.data.GameResultDatabase
+import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import goma.minesweeper.databinding.FragmentEndGameBinding
-import kotlin.concurrent.thread
 
 
 class EndGameFragment : DialogFragment() {

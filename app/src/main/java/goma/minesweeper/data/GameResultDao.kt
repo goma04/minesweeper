@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface GameResultDao{
     @Query("SELECT * FROM gameResult")
-    fun getAll(): List<GameResult>
+    fun getAll(): MutableList<GameResult>
 
     @Insert
     fun insert(gameResult: GameResult):Long
