@@ -68,7 +68,7 @@ class GameActivity : AppCompatActivity(), TableView.GameEndedListener,
                         time = seconds
                     )
                 )
-                var list = database.gameResultDao().getAll()
+                val list = database.gameResultDao().getAll()
                 for (item in list)
                     Log.d("list", item.player.toString())
             }

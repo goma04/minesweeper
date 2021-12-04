@@ -19,12 +19,9 @@ class EndGameFragment : DialogFragment() {
     private lateinit var binding: FragmentEndGameBinding
     private lateinit var listenerOnClosed: DialogClosed
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-    }
 
-    public fun setCloseListener(listenerOnClosed: DialogClosed){
+    fun setCloseListener(listenerOnClosed: DialogClosed){
         this.listenerOnClosed = listenerOnClosed
     }
 
@@ -54,7 +51,5 @@ class EndGameFragment : DialogFragment() {
     }
 
 
-    companion object {
-        const val TAG = "PurchaseConfirmationDialog"
-    }
+
 }

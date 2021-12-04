@@ -44,6 +44,7 @@
     <string name="bombs">Bombs</string>
     <string name="by_time">By time</string>
     <string name="bomb">Bomb</string>
+    <string name="errorText">Number of bombs should not be set higher than number of cells and should be a numeric value!</string>
 
 
 </resources>

@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val tableSize = sharedPreferences.getString("tableSize", "-1")!!.toInt()
         val bomNumberString = sharedPreferences.getString("bombNumber", "-1")
 
-        var bombNumber: Int = 0
+        var bombNumber = 0
 
         //Bombaszám ellenőrzése hogy szám-e
         var numeric = true
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (bombNumber > (tableSize * tableSize) || bombNumber < 0 || !numeric) {
-            binding.tvError.text = "Number of bombs should not be set higher than number of cells and should be a numeric value!"
+            binding.tvError.text = getString(R.string.errorText)
             binding.tvError.visibility = View.VISIBLE
         }
         else{

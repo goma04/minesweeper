@@ -8,24 +8,21 @@ import goma.minesweeper.SettingsActivity
 
 object MinesweeperModel {
     private lateinit var model: Array<Array<Cell?>>
-    private lateinit var sharedPreferences: SharedPreferences
 
     const val OPENED: Byte = 0
     const val FLAG: Byte = 1
     const val BOMB: Byte = 2
-    const val CLOSED: Byte = 3
+    private const val CLOSED: Byte = 3
 
-    fun getTableSize(): Int{
-        return model.size
-    }
 
-    public fun checkWin(): Boolean{
+
+     fun checkWin(): Boolean{
 
         for (row in model){
             for(cell in row)
             {
                 //Ha nincs nyitva és nincs benne bomba, még nincs vége
-                if(!cell!!.opened && !cell!!.bomb)
+                if(!cell!!.opened && !cell.bomb)
                     return false
             }
         }
@@ -65,29 +62,20 @@ object MinesweeperModel {
 
 
     fun getCellContent(x: Int, y: Int): Byte {
-        if (model[x][y]?.flag == true)
-            return FLAG
-        else if (model[x][y]?.opened == true) {
-            return OPENED
-        } else if (model[x][y]?.bomb == true) {
-            return BOMB
+        return when {
+            model[x][y]?.flag == true -> FLAG
+            model[x][y]?.opened == true -> {
+                OPENED
+            }
+            model[x][y]?.bomb == true -> {
+                BOMB
+            }
+            else -> CLOSED
         }
-        return CLOSED
     }
 
-    public fun getAdjacentCells(x: Int, y: Int): MutableList<Cell?> {
-        val res: MutableList<Cell?> = mutableListOf()
-        for (i in -1 until 2) {
-            for (j in -1 until 2)
-                if (x + i >= 0 && y + j >= 0 && x + i < model.size && y + j < model.size)
-                    res.add(model[x+i][y+j])
-        }
-        res.remove(model[x][y])
 
-        return res
-    }
 
-    //TODO remove this
     fun getCell(x: Int, y: Int):Cell?{
         return model[x][y]
     }

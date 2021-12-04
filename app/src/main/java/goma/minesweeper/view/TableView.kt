@@ -197,7 +197,7 @@ class TableView : View {
         setMeasuredDimension(d, d)
     }
 
-    private val mScaleFactor = 1.0000000f
+
     private val LONG_PRESS_TIME = 500.0;
     private var mStartClickTime: Long = 0
 
