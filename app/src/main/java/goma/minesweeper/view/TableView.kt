@@ -39,8 +39,8 @@ class TableView : View {
 
     private var tableSize: Int = sharedPreferences.getString("tableSize", "-1")!!.toInt()
     private var canvas: Canvas? = null
-    private lateinit var flag: Bitmap
-    private lateinit var bomb: Bitmap
+    private var flag: Bitmap
+    private var bomb: Bitmap
     private var numberImages: ArrayList<Bitmap> = ArrayList()
     private lateinit var gameEndedListener: GameEndedListener
 
@@ -65,15 +65,15 @@ class TableView : View {
         } else
             BitmapFactory.decodeResource(resources, R.drawable.bomb)
 
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number1));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number2));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number3));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number4));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number5));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number6));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number7));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number8));
-        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number9));
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number1))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number2))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number3))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number4))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number5))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number6))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number7))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number8))
+        numberImages.add(BitmapFactory.decodeResource(resources, R.drawable.number9))
     }
 
     private var firstDraw: Boolean = true
@@ -146,8 +146,6 @@ class TableView : View {
                         drawNumber(MinesweeperModel.getNumberBombsNear(i, j), x, y)
                     }
                     MinesweeperModel.FLAG -> canvas.drawBitmap(flag, x, y, null)
-
-
                     MinesweeperModel.BOMB -> {
                         if (lastDraw)
                             canvas.drawBitmap(bomb, x, y, null)
@@ -156,7 +154,6 @@ class TableView : View {
                 }
             }
         }
-        val i = 0
     }
 
     private fun drawNumber(bombsNumber: Int, x: Float, y: Float) {
@@ -228,23 +225,16 @@ class TableView : View {
         val clickDuration = Calendar.getInstance().timeInMillis - mStartClickTime
         val current = MinesweeperModel.getCellContent(tX, tY)
 
-        Log.d("touch", "$clickDuration");
-
         if (clickDuration < LONG_PRESS_TIME) {
-            Log.d("touch", "short")
-
             when {
                 current == MinesweeperModel.FLAG -> {
                     MinesweeperModel.setCell(tX, tY, false, opened = false)
                     bombNumberChangedListener.onBombNumberChanged(1)
                 }
                 current != MinesweeperModel.BOMB -> {
-
-
-
                     if (MinesweeperModel.getNumberBombsNear(tX, tY) == 0) {
                         openEmptyNeighbours(tX, tY)
-                    }else{
+                    } else {
                         MinesweeperModel.setCell(tX, tY, false, opened = true)
                     }
 
@@ -256,52 +246,51 @@ class TableView : View {
                     invalidate()
                     gameEndedListener.onGameEnded(false)
                 }
-                else -> {
-                    //TODO vége fragment meghívása
-                }
             }
         } else {
-            Log.d("touch", "long");
             val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            MinesweeperModel.setCell(tX, tY, flag = true, opened = false)
-            bombNumberChangedListener.onBombNumberChanged(-1)
-            if (Build.VERSION.SDK_INT >= 26) {
-                vibrator.vibrate(
-                    VibrationEffect.createOneShot(
-                        20,
-                        VibrationEffect.DEFAULT_AMPLITUDE
+            if (current != MinesweeperModel.FLAG) {
+                MinesweeperModel.setCell(tX, tY, flag = true, opened = false)
+                bombNumberChangedListener.onBombNumberChanged(-1)
+                if (Build.VERSION.SDK_INT >= 26) {
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(
+                            20,
+                            VibrationEffect.DEFAULT_AMPLITUDE
+                        )
                     )
-                )
-            } else vibrator.vibrate(200)
-
+                } else vibrator.vibrate(200)
+            }
         }
     }
 
+    //Rekurzívan felnyitja az üres szomszédokat
     private fun openEmptyNeighbours(tX: Int, tY: Int) {
-        Log.v("q", "$tX $tY")
-        if (tX < 0 || tY < 0 || tX > tableSize - 1 || tY > tableSize-1) {
-            Log.d("q", "Returned")
+        if (tX < 0 || tY < 0 || tX > tableSize - 1 || tY > tableSize - 1) {
             return
         }
-        /*if (MinesweeperModel.getNumberBombsNear(tX, tY) != 0) {
-            Log.d("q", "Returned")
-            return
-        }*/
 
-        if(MinesweeperModel.getCellContent(tX,tY) != MinesweeperModel.BOMB && MinesweeperModel.getCellContent(tX,tY) != MinesweeperModel.OPENED && MinesweeperModel.getNumberBombsNear(tX,tY) == 0 ){
+        if (MinesweeperModel.getCellContent(
+                tX,
+                tY
+            ) != MinesweeperModel.BOMB && MinesweeperModel.getCellContent(
+                tX,
+                tY
+            ) != MinesweeperModel.OPENED && MinesweeperModel.getNumberBombsNear(tX, tY) == 0
+        ) {
             MinesweeperModel.setCell(tX, tY, false, opened = true)
-            MinesweeperModel.getCell(tX,tY)!!.draw = true
+            MinesweeperModel.getCell(tX, tY)!!.draw = true
 
             openEmptyNeighbours(tX, tY - 1)
             openEmptyNeighbours(tX, tY + 1)
-             openEmptyNeighbours(tX + 1, tY)
+            openEmptyNeighbours(tX + 1, tY)
             openEmptyNeighbours(tX - 1, tY)
-        }else return
+        } else return
 
     }
 
 
-    public fun setListeners(
+    fun setListeners(
         gameEndedListener: GameEndedListener,
         bombNumberChangedListener: BombNumberChangedListener
     ) {

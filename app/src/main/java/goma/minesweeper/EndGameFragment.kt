@@ -11,7 +11,6 @@ import goma.minesweeper.databinding.FragmentEndGameBinding
 
 class EndGameFragment : DialogFragment() {
 
-
     interface DialogClosed{
         fun onDialogClosed()
     }
@@ -19,14 +18,9 @@ class EndGameFragment : DialogFragment() {
     private lateinit var binding: FragmentEndGameBinding
     private lateinit var listenerOnClosed: DialogClosed
 
-
-
     fun setCloseListener(listenerOnClosed: DialogClosed){
         this.listenerOnClosed = listenerOnClosed
     }
-
-
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentEndGameBinding.inflate(LayoutInflater.from(context))
@@ -46,10 +40,5 @@ class EndGameFragment : DialogFragment() {
                 }
             }
             .create()
-
-
     }
-
-
-
 }

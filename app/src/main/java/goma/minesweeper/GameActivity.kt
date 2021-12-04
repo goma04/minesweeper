@@ -1,7 +1,6 @@
 package goma.minesweeper
 
 import android.content.SharedPreferences
-import android.graphics.*
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,7 @@ class GameActivity : AppCompatActivity(), TableView.GameEndedListener,
     private lateinit var binding: ActivityGameBinding
     private lateinit var sharedPreferences: SharedPreferences
     private var numberOfBombs = 0
-    private var t: Timer = Timer()
+    private var timer: Timer = Timer()
     private var seconds = 0
 
     private lateinit var database: GameResultDatabase
@@ -31,23 +30,20 @@ class GameActivity : AppCompatActivity(), TableView.GameEndedListener,
 
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tableView.setListeners(this, this)
 
         database = GameResultDatabase.getDatabase(applicationContext)
-
-        Log.d("1", "inflate után");
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         numberOfBombs = sharedPreferences.getString("bombNumber", "-1")!!.toInt()
         val tableSize = sharedPreferences.getString("tableSize", "-1")!!.toInt()
 
+        binding.tableView.setListeners(this, this)
         binding.tvBombNumber.text = numberOfBombs.toString()
 
-        MinesweeperModel.resetModel(tableSize, numberOfBombs.toInt())
+        MinesweeperModel.resetModel(tableSize, numberOfBombs)
 
-        t.scheduleAtFixedRate(object : TimerTask() {
+        timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-
                 seconds++
 
                 runOnUiThread { binding.tvTime.text = seconds.toString() }
@@ -56,8 +52,8 @@ class GameActivity : AppCompatActivity(), TableView.GameEndedListener,
     }
 
     override fun onGameEnded(won: Boolean) {
-        t.cancel()
-        t.purge()
+        timer.cancel()
+        timer.purge()
 
         if (won) {
             thread {
@@ -68,9 +64,6 @@ class GameActivity : AppCompatActivity(), TableView.GameEndedListener,
                         time = seconds
                     )
                 )
-                val list = database.gameResultDao().getAll()
-                for (item in list)
-                    Log.d("list", item.player.toString())
             }
         }
         val summary = if (won) {
