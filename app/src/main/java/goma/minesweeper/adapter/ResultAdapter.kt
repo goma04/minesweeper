@@ -1,5 +1,6 @@
 package goma.minesweeper.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ class ResultAdapter():RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
         return items.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun update(gameResults: List<GameResult>){
         items.clear()
         items.addAll(gameResults)
